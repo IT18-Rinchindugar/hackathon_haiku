@@ -80,9 +80,69 @@ const CustomerLocation = ({ setActiveItem }) => {
           />
           <Callout>
             <View
-              style={{ width: 50, height: 50, backgroundColor: "red" }}
-            ></View>
-            <Text>{marker.name}</Text>
+              style={{
+                width: 120,
+                paddingBottom: 4,
+                flex: 1,
+                flexDirection: "row",
+              }}
+            >
+              <View
+                style={{
+                  height: 5,
+                  width: 5,
+                  borderRadius: 5,
+                  backgroundColor: "red",
+                  marginTop: 4,
+                }}
+              ></View>
+              <Text style={{ fontSize: 10, marginLeft: 5 }}>
+                Эрсдэлтэй цаг ( 16-20 )
+              </Text>
+            </View>
+            <View
+              style={{
+                width: 100,
+                paddingBottom: 4,
+                flex: 1,
+                flexDirection: "row",
+              }}
+            >
+              <View
+                style={{
+                  height: 5,
+                  width: 5,
+                  borderRadius: 5,
+                  backgroundColor: "orange",
+                  marginTop: 4,
+                }}
+              ></View>
+              <Text style={{ fontSize: 10, marginLeft: 5 }}>
+                Эрсдэл багатай цаг ( 10-12 )
+              </Text>
+            </View>
+            <View
+              style={{
+                width: 100,
+                paddingBottom: 4,
+                flex: 1,
+                flexDirection: "row",
+              }}
+            >
+              <View
+                style={{
+                  height: 5,
+                  width: 5,
+                  borderRadius: 5,
+                  backgroundColor: "green",
+                  marginTop: 4,
+                }}
+              ></View>
+              <Text style={{ fontSize: 10, marginLeft: 5 }}>
+                Үйлчлүүлэгч ( 120 )
+              </Text>
+            </View>
+            <Text style={{ textAlign: "center" }}>{marker.name}</Text>
           </Callout>
         </Marker>
       ))}
