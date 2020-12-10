@@ -27,12 +27,16 @@ const Title = styled.Text`
 `;
 const Tabs = (props) => {
   const [active, setActive] = useState(0);
-  const { tabs } = props;
+  const { tabs, setActiveTab } = props;
+  const activeSwitch = (tag) => {
+    setActiveTab(tag);
+    setActive(tag);
+  };
   return (
     <Tab>
       {tabs.map((tab) => (
         <TabItem
-          onPress={() => setActive(tab.tag)}
+          onPress={() => activeSwitch(tab.tag)}
           key={tab.name}
           active={tab.tag == active}
         >

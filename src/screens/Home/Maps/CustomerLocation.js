@@ -1,41 +1,31 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Image, Text, Alert, View, Platform } from "react-native";
-import MapView, {
-  Marker,
-  Callout,
-  PROVIDER_GOOGLE,
-  Polygon,
-  Circle,
-} from "react-native-maps";
+import data from "../../../utils/map.json";
+import MapView, { Marker, Callout, PROVIDER_GOOGLE } from "react-native-maps";
 import * as Location from "expo-location";
-
-const coordinates = [
-  { name: "3", latitude: 47.92123, longitude: 106.918556 },
-  { name: "4", latitude: 47.82123, longitude: 106.818556 },
-  { name: "5", latitude: 47.72123, longitude: 106.818556 },
-  { name: "6", latitude: 47.62123, longitude: 106.118556 },
-];
-const CustomerLocation = () => {
-  const [customerLocation, setCustomerLocation] = useState(null);
-  const showWelcomeMessage = () => {
-    console.log("Bna");
+import * as Permissions from "expo-permissions";
+const CustomerLocation = ({ setActiveItem }) => {
+  const [customerLocation, setCustomerLocation] = useState(data[0]);
+  const getGeocodeAsync = async (location) => {
+    let geocode = await Location.reverseGeocodeAsync(location);
+    return geocode;
   };
-
-  const getLocation = async (location) => {
-    let loc = await Location.reverseGeocodeAsync(location);
-    return loc;
+  const setMarker = (marker) => {
+    setActiveItem(marker);
+    setCustomerLocation(marker);
   };
   useEffect(() => {
+    setActiveItem(data[0]);
     (async () => {
-      let { status } = await Location.requestPermissionsAsync();
+      let { status } = await Permissions.askAsync(Permissions.LOCATION);
       if (status !== "granted") {
         console.log("Permission to access location was denied");
       }
-
       let location = await Location.getCurrentPositionAsync({});
       setCustomerLocation(location.coords);
     })();
   }, []);
+
   return (
     <MapView
       style={styles.map}
@@ -47,48 +37,115 @@ const CustomerLocation = () => {
         longitudeDelta: 0.035,
       }}
     >
-      <Polygon
+      {/* <Polygon
         coordinates={coordinates}
         fillColor={"rgba(100, 200, 200, 0.3)"}
-      />
-      <Circle
+      /> */}
+      {/* <Circle
         center={{ latitude: 47.92123, longitude: 106.918556 }}
         radius={500}
         fillColor={"rgba(200, 100, 200, 0.5)"}
-      />
+      /> */}
       <Marker
         coordinate={{
           latitude: customerLocation.latitude,
           longitude: customerLocation.longitude,
         }}
       >
-        <Callout>
+        <Image
+          style={{ width: 35, height: 35, resizeMode: "contain" }}
+          source={require("../../../../assets/map.png")}
+        />
+        <Callout onPress={() => console.log("1")}>
           <Image
-            style={{ width: 10, height: 10, resizeMode: "contain" }}
-            source={require("./assets/favicon.png")}
+            style={{ width: 100, height: 100, resizeMode: "contain" }}
+            source={require("../../../../assets/bg.png")}
           />
           <Text>Улсууд</Text>
         </Callout>
       </Marker>
-      {coordinates.map((marker) =>
-        getLocation(marker).then((res) => {
-          <Marker
-            key={res.name}
-            coordinate={{
-              latitude: marker.latitude,
-              longitude: marker.longitude,
-            }}
-            onPress={() => console.log(marker.name)}
-          >
-            <Callout>
+      {data.map((marker) => (
+        <Marker
+          key={marker.name}
+          coordinate={{
+            latitude: marker.latitude,
+            longitude: marker.longitude,
+          }}
+          onPress={() => setMarker(marker)}
+          style={{ width: 200 }}
+        >
+          <Image
+            style={{ width: 35, height: 35, resizeMode: "contain" }}
+            source={require("../../../../assets/map.png")}
+          />
+          <Callout>
+            <View
+              style={{
+                width: 120,
+                paddingBottom: 4,
+                flex: 1,
+                flexDirection: "row",
+              }}
+            >
               <View
-                style={{ width: 50, height: 50, backgroundColor: "red" }}
+                style={{
+                  height: 5,
+                  width: 5,
+                  borderRadius: 5,
+                  backgroundColor: "red",
+                  marginTop: 4,
+                }}
               ></View>
-              <Text>{res.name}</Text>
-            </Callout>
-          </Marker>;
-        })
-      )}
+              <Text style={{ fontSize: 10, marginLeft: 5 }}>
+                Эрсдэлтэй цаг ( 16-20 )
+              </Text>
+            </View>
+            <View
+              style={{
+                width: 100,
+                paddingBottom: 4,
+                flex: 1,
+                flexDirection: "row",
+              }}
+            >
+              <View
+                style={{
+                  height: 5,
+                  width: 5,
+                  borderRadius: 5,
+                  backgroundColor: "orange",
+                  marginTop: 4,
+                }}
+              ></View>
+              <Text style={{ fontSize: 10, marginLeft: 5 }}>
+                Эрсдэл багатай цаг ( 10-12 )
+              </Text>
+            </View>
+            <View
+              style={{
+                width: 100,
+                paddingBottom: 4,
+                flex: 1,
+                flexDirection: "row",
+              }}
+            >
+              <View
+                style={{
+                  height: 5,
+                  width: 5,
+                  borderRadius: 5,
+                  backgroundColor: "green",
+                  marginTop: 4,
+                }}
+              ></View>
+              <Text style={{ fontSize: 10, marginLeft: 5 }}>
+                Үйлчлүүлэгч ( 120 )
+              </Text>
+            </View>
+            <Text style={{ textAlign: "center" }}>{marker.name}</Text>
+          </Callout>
+        </Marker>
+      ))}
     </MapView>
   );
 };
