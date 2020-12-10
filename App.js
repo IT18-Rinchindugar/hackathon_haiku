@@ -7,6 +7,7 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { HomeNavigator } from "./src/screens/Home";
 
 const AppStack = createStackNavigator();
+const DefaultStack = createStackNavigator();
 const App = () => {
   return (
     <SafeAreaProvider>

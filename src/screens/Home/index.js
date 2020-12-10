@@ -1,11 +1,21 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { MaterialCommunityIcons, Ionicons } from "@expo/vector-icons";
-import { Feed } from "./Feed";
+import { Feed, Feedback } from "./Feed";
 import { Chatbot } from "./Chatbot";
 import { Maps } from "./Maps";
+import { createStackNavigator } from "@react-navigation/stack";
 
+const FeedStack = createStackNavigator();
 const HomeStack = createBottomTabNavigator();
+export const HomeDefaultNavigator = () => {
+  return (
+    <FeedStack.Navigator headerMode="none">
+      <FeedStack.Screen name="Feed" component={Feed} />
+      <FeedStack.Screen name="Feedback" component={Feedback} />
+    </FeedStack.Navigator>
+  );
+};
 
 export const HomeNavigator = () => {
   return (
@@ -37,7 +47,7 @@ export const HomeNavigator = () => {
               color="#E9446A"
               style={{
                 position: "absolute",
-                top: -30,
+                top: -20,
                 shadowColor: "#E9446A",
                 shadowOffset: { width: 0, height: 10 },
                 shadowRadius: 10,

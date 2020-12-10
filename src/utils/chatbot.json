@@ -1,0 +1,47 @@
+[
+  {
+    "id": 0,
+    "title": "Сайн уу 😊",
+    "chatbotScheme": [
+      {
+        "id": 0,
+        "image": null,
+        "text": "Сайн уу 😊",
+        "navigateTo": null,
+        "params": null,
+        "touchable": false,
+        "choice": false
+      },
+      {
+        "id": 1,
+        "text": "Та дараах асуултуудад хариулснаар коронавирусын халдвар авсан эсэхээ мэдэх боломжтой.",
+        "touchable": false,
+        "choice": [
+          {
+            "id": 0,
+            "text": "Та 37 хэмээс дээш халуурсан уу?",
+            "touchable": false,
+            "choice": true,
+            "choiceData": [
+              {
+                "id": 0,
+                "text": "Тийм",
+                "touchable": true
+              },
+              {
+                "id": 1,
+                "text": "Үгүй",
+                "touchable": true
+              },
+              {
+                "id": 2,
+                "text": "Мэдэхгүй",
+                "touchable": true
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
